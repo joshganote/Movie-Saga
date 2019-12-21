@@ -6,26 +6,39 @@ class Detail extends Component {
         this.props.dispatch({
             type: 'GET_DETAILS'
         });
+
+
+    }
+
+    goBack = (event) => {
+        this.props.history.push('/');
+    }
+
+    goToDetail = (event) => {
+        this.props.history.push('/edit');
     }
 
     render() {
-        const movieArray = this.props.store.movies.map((item, index) => {
+        const genresArray = this.props.store.genres.map((item, index) => {
             return <tr key={index}>
                 <td>
-                <h2>{item.title}</h2>
-                {item.description}
-                {item.movies_id}
-                {item.genres_id}
-                {item.name}
+                    <td>
+                        <h2>{item.title}</h2>
+                        {item.description}
+                    </td>
+                    <h4>{item.name}</h4>
                 </td>
-                </tr>
+            </tr>
         })
 
         return (
-                <table className="App">
-                    <tbody>{movieArray}</tbody>
-                </table>
-           
+            <table className="App">
+                <button onClick={this.goBack}>Go Back</button>
+                <button onClick={this.goToDetail}>Edit</button>
+                <tbody>{genresArray}</tbody>
+
+            </table>
+
         )
     }
 }
