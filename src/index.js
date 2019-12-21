@@ -35,10 +35,10 @@ function* getDetailSaga(action){
     try{
         const response = yield axios({
             method: 'GET',
-            url: '/api/movie/detail'
+            url: '/api/movie/detail' 
         });
         yield put({
-            type: 'SET_MOVIES',
+            type: 'SET_GENRES',
             payload: response.data
         });
     } catch(err) {
