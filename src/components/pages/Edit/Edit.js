@@ -28,6 +28,7 @@ handleChange = (event, inputKey) => {
             return <tr key={index}>
                 <td>
                     <h4>{item.name}</h4>
+                    <td>{item.description}</td>
                 </td>
             </tr>
         })
