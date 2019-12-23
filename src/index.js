@@ -14,7 +14,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('GET_MOVIES', getMovieSaga);
-    yield takeEvery('GET_DETAILS', getDetailSaga);
+    yield takeEvery('GET_GENRES', getGenreSaga);
 }
 
 function* getMovieSaga(action){
@@ -31,11 +31,12 @@ function* getMovieSaga(action){
            console.log('error getting elements', err); 
     }
 }
-function* getDetailSaga(action){
+
+function* getGenreSaga(action){
     try{
         const response = yield axios({
             method: 'GET',
-            url: '/api/movie/detail' 
+            url: '/api/movie'
         });
         yield put({
             type: 'SET_GENRES',
@@ -49,6 +50,7 @@ function* getDetailSaga(action){
 const sagaMiddleware = createSagaMiddleware();
 
 // Used to store movies returned from the server
+// just need id, title, image, description
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -59,6 +61,7 @@ const movies = (state = [], action) => {
 }
 
 // Used to store the movie genres
+// just need id, name
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
@@ -84,3 +87,18 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
     document.getElementById('root'));
 registerServiceWorker();
+
+// function* getDetailSaga(action){
+//     try{
+//         const response = yield axios({
+//             method: 'GET',
+//             url: '/api/movie/detail' 
+//         });
+//         yield put({
+//             type: 'SET_GENRES',
+//             payload: response.data
+//         });
+//     } catch(err) {
+//            console.log('error getting elements', err); 
+//     }
+// }
