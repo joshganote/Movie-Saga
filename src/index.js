@@ -15,6 +15,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 function* rootSaga() {
     yield takeEvery('GET_MOVIES', getMovieSaga);
     yield takeEvery('GET_GENRES', getGenreSaga);
+    yield takeEvery('POST_GENRES', postMovieDetail);
 }
 
 function* getMovieSaga(action){
@@ -44,6 +45,15 @@ function* getGenreSaga(action){
         });
     } catch(err) {
            console.log('error getting elements', err); 
+    }
+}
+
+function* postMovieDetail(action) {
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put({ type: 'GET_GENRES'})
+    } catch (err) {
+        console.log(err);
     }
 }
 // Create sagaMiddleware
