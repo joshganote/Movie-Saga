@@ -4,14 +4,20 @@ import StateToProps from '../../redux/StateToProps';
 
 class Edit extends Component {
 
+// the two key values to update on database
     state = {
-        name: '',
+        title: '',
         description: ''
     }
 
-    componentDidMount() {
+    // only loads the title and description on page load
+    componentDidMount(title, description) {
         this.props.dispatch({
-            type: 'GET_DETAILS'
+            type: 'GET_MOVIES',
+            payload: {
+                title,
+                description,
+            }
         });
 }
 
@@ -22,18 +28,31 @@ handleChange = (event, inputKey) => {
     })
 }
 
-goBack = (event) => {
+
+
+handleSubmit = (event) => {
+    this.props.dispatch({
+        type: 'PUT_EDIT',
+        payload: this.state
+    })
+    //clear inputs
+    this.setState({
+        title: '',
+        description: ''
+    })
+
+    // takes user back to detail page after clicking save
     this.props.history.push('/detail');
 }
-
    
 
     render(){
-        const genresArray = this.props.store.genres.map((item, index) => {
+        // mapping through data to get title and description
+        const moviesArray = this.props.store.movies.map((item, index) => {
             return <tr key={index}>
                 <td>
+                    <h4>{item.title}</h4>
                     <td>{item.description}</td>
-                    <h4>{item.name}</h4>
                 </td>
             </tr>
         })
@@ -42,13 +61,13 @@ goBack = (event) => {
             <div>EDIT</div>
             <button onClick={this.goBack}>Back</button>
             <button>Cancel</button>
-            <button onSubmit={this.handleSubmit}>Save </button>
+            <button onClick={this.handleSubmit}>Save </button>
             <br/>
             <input
                     type="text"
-                    placeholder="Genre"
-                    value={this.state.name}
-                    onChange={(event) => this.handleChange(event, 'name')}
+                    placeholder="Title"
+                    value={this.state.title}
+                    onChange={(event) => this.handleChange(event, 'title')}
                 />
                 <br/>
                  <input
@@ -58,7 +77,7 @@ goBack = (event) => {
                     onChange={(event) => this.handleChange(event, 'description')}
                     required
                 />
-            {genresArray}
+            {moviesArray}
             </div>
     
         )
