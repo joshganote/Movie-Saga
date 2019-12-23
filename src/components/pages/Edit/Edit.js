@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
+import StateToProps from '../../redux/StateToProps';
 
 class Edit extends Component {
 
@@ -21,20 +22,25 @@ handleChange = (event, inputKey) => {
     })
 }
 
+goBack = (event) => {
+    this.props.history.push('/detail');
+}
+
    
 
     render(){
         const genresArray = this.props.store.genres.map((item, index) => {
             return <tr key={index}>
                 <td>
-                    <h4>{item.name}</h4>
                     <td>{item.description}</td>
+                    <h4>{item.name}</h4>
                 </td>
             </tr>
         })
         return(
             <div>
             <div>EDIT</div>
+            <button onClick={this.goBack}>Back</button>
             <button>Cancel</button>
             <button onSubmit={this.handleSubmit}>Save </button>
             <br/>
@@ -58,8 +64,5 @@ handleChange = (event, inputKey) => {
         )
     }
 }
-const mapReduxStateToProps = (store) => ({
-    store
-});
 
-export default connect(mapReduxStateToProps)(Edit);
+export default connect(StateToProps)(Edit);

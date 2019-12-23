@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import StateToProps from '../../redux/StateToProps';
 
 class Home extends Component {
     componentDidMount() {
@@ -8,25 +9,27 @@ class Home extends Component {
         });
     }
 
-    clickEvent = (event) => {
+    clickEvent = (event, id) => {
         this.props.dispatch({
             type: 'GET_MOVIES',
-            payload: this.state,
+            payload: id,
         })
         this.props.history.push('/detail');
     }
 
     render() {
         const movieArray = this.props.store.movies.map((item, index) => {
-            return <tr key={index}>
-                <td onClick={(event) => this.clickEvent(event, item.name)}>
-                    <img alt="movie poster" src={item.poster}></img>
-                </td>
-                <td>
-                    <h2>{item.title}</h2>
-                    {item.description}
-                </td>
-            </tr>
+            return (
+                <tr key={index}>
+                    <td onClick={(event) => this.clickEvent(event, item.name)}>
+                        <img alt="movie poster" src={item.poster}></img>
+                    </td>
+                    <td>
+                        <h2>{item.title}</h2>
+                        {item.description}
+                    </td>
+                </tr>
+            )
         })
 
         return (
@@ -37,9 +40,5 @@ class Home extends Component {
         )
     }
 }
-// Makes our reducers available in our component
-const mapReduxStateToProps = (store) => ({
-    store
-});
 
-export default connect(mapReduxStateToProps)(Home);
+export default connect(StateToProps)(Home);

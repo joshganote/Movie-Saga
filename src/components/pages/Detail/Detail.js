@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import StateToProps from '../../redux/StateToProps';
 
 class Detail extends Component {
     componentDidMount() {
         this.props.dispatch({
-            type: 'GET_DETAILS'
+            type: 'GET_GENRES'
         });
 
 
@@ -42,9 +43,5 @@ class Detail extends Component {
         )
     }
 }
-// Makes our reducers available in our component
-const mapReduxStateToProps = (store) => ({
-    store
-});
 
-export default connect(mapReduxStateToProps)(Detail);
+export default connect(StateToProps)(Detail);
