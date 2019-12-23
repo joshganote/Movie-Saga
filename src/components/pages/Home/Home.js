@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import StateToProps from '../../redux/StateToProps';
 
 class Home extends Component {
+    // loads movie data from database
     componentDidMount() {
         this.props.dispatch({
-            type: 'GET_MOVIES'
+            type: 'GET_MOVIES',
         });
     }
 
@@ -18,6 +19,8 @@ class Home extends Component {
     }
 
     render() {
+        // TODO: componentize this so I dont have to use this on every page.
+        // mapping through data structure to get values needed
         const movieArray = this.props.store.movies.map((item, index) => {
             return (
                 <tr key={index}>
