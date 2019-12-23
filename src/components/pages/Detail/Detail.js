@@ -3,9 +3,15 @@ import { connect } from 'react-redux';
 import StateToProps from '../../redux/StateToProps';
 
 class Detail extends Component {
-    componentDidMount() {
+    // expected data type to be seen on page load
+    componentDidMount(title, description, name) {
         this.props.dispatch({
-            type: 'GET_GENRES'
+            type: 'GET_MOVIES',
+            payload: {
+                title,
+                description,
+                name,
+            }
         });
 
 
@@ -20,7 +26,8 @@ class Detail extends Component {
     }
 
     render() {
-        const genresArray = this.props.store.genres.map((item, index) => {
+        // mapping through data structure to get values needed
+        const moviesArray = this.props.store.movies.map((item, index) => {
             return <tr key={index}>
                 <td>
                     <td>
@@ -36,7 +43,7 @@ class Detail extends Component {
             <table className="App">
                 <button onClick={this.goBack}>Go Back</button>
                 <button onClick={this.goToDetail}>Edit</button>
-                <tbody>{genresArray}</tbody>
+                <tbody>{moviesArray}</tbody>
 
             </table>
 
