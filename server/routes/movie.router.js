@@ -32,17 +32,3 @@ router.put('/', (req, res) => {
 });
 
 module.exports = router;
-
-// router.get ('/', (req,res) => {
-//     let queryText = 
-//     `SELECT * FROM "movies"
-//     ORDER BY "movies"."id" ASC;`;
-//     pool.query(queryText)
-//     .then(results => {
-//         res.send(results.rows);
-//     })
-//     .catch(error => {
-//         console.log(`couldn't get movie`, error);
-//         res.sendStatus(500);
-//     })
-// })
