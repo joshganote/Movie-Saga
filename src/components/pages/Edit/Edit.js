@@ -28,17 +28,18 @@ handleChange = (event, inputKey) => {
     })
 }
 
-
+cancelNewInput = (event) => {
+     //clear inputs
+     this.setState({
+        title: '',
+        description: ''
+    })
+}
 
 handleSubmit = (event) => {
     this.props.dispatch({
         type: 'PUT_EDIT',
         payload: this.state
-    })
-    //clear inputs
-    this.setState({
-        title: '',
-        description: ''
     })
 
     // takes user back to detail page after clicking save
@@ -58,9 +59,7 @@ handleSubmit = (event) => {
         })
         return(
             <div>
-            <div>EDIT</div>
-            <button onClick={this.goBack}>Back</button>
-            <button>Cancel</button>
+            <button onClick={this.cancelNewInput}>Cancel</button>
             <button onClick={this.handleSubmit}>Save </button>
             <br/>
             <input
