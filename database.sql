@@ -55,3 +55,33 @@ VALUES
 ('Science Fiction'),
 ('Space-Opera'),
 ('Superhero');
+
+
+-- Joined table
+CREATE TABLE "movies_genres" (
+	id SERIAL PRIMARY KEY,
+	movies_id INT REFERENCES "movies",
+	genres_id INT REFERENCES "genres"
+);
+
+--SQL query that gives me a table I can populate
+SELECT * FROM "movies"
+JOIN "movies_genres" ON "movies"."id" = "movies_genres"."movies_id"
+JOIN "genres" ON "movies_genres"."genres_id" = "genres"."id"
+ORDER BY "movies"."id" ASC;
+
+-- Starter data entries in movies_genres table
+id   |    movies_id   |   genres_id   
+  1         1                 8
+  2         2                 2
+  3         3                 1 
+  4         4                 4
+  5         5                 6
+  7         7                 1
+  8         8                 8
+  9         9                 2
+  10        10                1
+  11        11                11
+  12        12                6
+  13        13                10
+  14        14                4
